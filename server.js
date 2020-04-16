@@ -21,7 +21,7 @@ server.use((req, res) => {
 function logger(req, res, next) {}
 
 const hostName = process.env.hostName || "21.0.0.1";
-const PORT = process.env.PORT || 2000;
+const PORT = process.env.PORT || 4000;
 
 server.listen(PORT, () => {
   console.log(`Server listening on ${hostName}:${PORT}`);

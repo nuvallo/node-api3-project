@@ -1,29 +1,37 @@
 const express = require("express");
-const db = require("./userDb");
+const userDB = require("./userDb");
 
 const router = express.Router();
 
 router.post("/", (req, res) => {
-  // do your magic!
+  userDB
+    .insert(req.body)
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      console("Error", err);
+      res.status(500).json({ errorMessage: "Error adding user" });
+    });
 });
 
-router.post("/:id/posts", (req, res) => {
-  // do your magic!
-});
+router.post("/:id/posts", (req, res) => {});
 
 router.get("/", (req, res) => {
-  db.get()
+  userDB
+    .get()
     .then((users) => {
       res.status(201).json(users);
     })
     .catch((err) => {
-      console.log(err);
+      console.log("Error", err);
       res.status(500).json({ errorMessage: "Error retrieving users" });
     });
 });
 
 router.get("/:id", (req, res) => {
-  db.getById(req.params.id)
+  userDB
+    .getById(req.params.id)
     .then((user) => {
       res.status(201).json(user);
     })
@@ -34,22 +42,39 @@ router.get("/:id", (req, res) => {
 });
 
 router.get("/:id/posts", (req, res) => {
-  db.getUserPosts(req.params.id)
+  userDB
+    .getUserPosts(req.params.id)
     .then((posts) => {
       res.status(201).json(posts);
     })
     .catch((err) => {
       console.log("Error", err);
-      res.status(500).json({ errorMessage: "Error retrieving user posts" });
+      res.status(500).json({ errorMessage: "Error retrieving posts" });
     });
 });
 
 router.delete("/:id", (req, res) => {
-  // do your magic!
+  userDB
+    .remove(req.params.id)
+    .then(() => {
+      res.status(201).json({ message: "User removed!" });
+    })
+    .catch((err) => {
+      console.log("Error", err);
+      res.status(500).json({ message: "Error removing user" });
+    });
 });
 
 router.put("/:id", (req, res) => {
-  // do your magic!
+  userDB
+    .update(req.params.id, req.body)
+    .then((user) => {
+      res.status(201).json(user);
+    })
+    .catch((err) => {
+      console.log("Error", err);
+      res.status(500).json({ message: "Error updating user" });
+    });
 });
 
 //custom middleware
