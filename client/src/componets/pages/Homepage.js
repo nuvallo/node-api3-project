@@ -2,11 +2,15 @@ import React from "react";
 import Searchbar from "../layout/Searchbar";
 import UserCard from "../layout/UserCard";
 
-const Homepage = () => {
+const Homepage = ({ users }) => {
   return (
     <div>
       <Searchbar />
-      <UserCard />
+      <div className="card-container">
+        {users.map((user) => {
+          return <UserCard user={user} key={user.id} />;
+        })}
+      </div>
     </div>
   );
 };

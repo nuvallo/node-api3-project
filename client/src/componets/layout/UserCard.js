@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import styled from "styled-components";
 
-const UserCard = () => {
+const UserCard = ({ user }) => {
   return (
     <Fragment>
       <Card>
         <h4>
-          <strong>Name:</strong> Tyler
+          <strong>Name:</strong> {user.name}
         </h4>
+        <button>Edit</button>
+        <button>Delete</button>
       </Card>
     </Fragment>
   );
